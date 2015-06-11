@@ -891,13 +891,16 @@ bool Map::test_collision_with_entities(
   const std::list<MapEntity*>& obstacle_entities =
       entities->get_obstacle_entities(layer);
 
-  for (MapEntity* entity: obstacle_entities) {
+  std::list<MapEntity*>::const_reverse_iterator it;
+  const std::list<MapEntity*>::const_reverse_iterator rend =
+      obstacle_entities.rend();
+  for (it = obstacle_entities.rbegin(); it != rend; ++it) {
+    MapEntity* entity = *it;
 
     if (entity->overlaps(collision_box)
-        && entity->is_obstacle_for(entity_to_check, collision_box)
         && entity->is_enabled()
         && entity != &entity_to_check)
-      return true;
+      return entity->is_obstacle_for(entity_to_check, collision_box);
   }
 
   return false;
