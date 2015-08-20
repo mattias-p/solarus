@@ -844,31 +844,13 @@ bool Map::test_collision_with_ground(
     break;
 
   case Ground::LOW_WALL:
-    on_obstacle = entity_to_check.is_low_wall_obstacle();
-    break;
-
   case Ground::SHALLOW_WATER:
-    on_obstacle = entity_to_check.is_shallow_water_obstacle();
-    break;
-
   case Ground::DEEP_WATER:
-    on_obstacle = entity_to_check.is_deep_water_obstacle();
-    break;
-
   case Ground::HOLE:
-    on_obstacle = entity_to_check.is_hole_obstacle();
-    break;
-
   case Ground::LAVA:
-    on_obstacle = entity_to_check.is_lava_obstacle();
-    break;
-
   case Ground::PRICKLE:
-    on_obstacle = entity_to_check.is_prickle_obstacle();
-    break;
-
   case Ground::LADDER:
-    on_obstacle = entity_to_check.is_ladder_obstacle();
+    on_obstacle = entity_to_check.is_ground_obstacle(ground);
     break;
   }
 
@@ -1125,12 +1107,15 @@ void Map::check_collision_with_detectors(MapEntity& entity) {
     return;
   }
 
+  if (entity.is_being_removed()) {
+    return;
+  }
+
   // Check this entity with each detector.
   const std::list<Detector*>& detectors = entities->get_detectors();
   for (Detector* detector: detectors) {
 
     if (detector->is_enabled()
-        && !detector->is_suspended()
         && !detector->is_being_removed()) {
       detector->check_collision(entity);
     }
@@ -1152,19 +1137,19 @@ void Map::check_collision_from_detector(Detector& detector) {
     return;
   }
 
+  if (detector.is_being_removed()) {
+    return;
+  }
+
   // First check the hero.
   detector.check_collision(get_entities().get_hero());
 
   // Check each entity with this detector.
-  // TODO use a grid or a quadtree to only check entities nearby.
   const std::list<MapEntityPtr>& all_entities = entities->get_entities();
   for (const MapEntityPtr& entity: all_entities) {
 
     if (entity->is_enabled()
-        && !entity->is_suspended()
-        && !entity->is_being_removed()
-        && entity.get() != &detector
-    ) {
+        && !entity->is_being_removed()) {
       detector.check_collision(*entity);
     }
   }
@@ -1193,7 +1178,6 @@ void Map::check_collision_with_detectors(MapEntity& entity, Sprite& sprite) {
   for (Detector* detector: detectors) {
 
     if (!detector->is_being_removed()
-        && !detector->is_suspended()
         && detector->is_enabled()) {
       detector->check_collision(entity, sprite);
     }
