@@ -21,7 +21,7 @@
 
 namespace Solarus {
 
-class MapEntity;
+class Entity;
 
 /**
  * \brief Abstract base class for a state of the entity.
@@ -38,15 +38,15 @@ class MapEntityState {
     // creation and destruction
     virtual ~MapEntityState();
 
-    virtual MapEntity& get_entity();
-    virtual const MapEntity& get_entity() const;
+    virtual Entity& get_entity();
+    virtual const Entity& get_entity() const;
     const std::string& get_name() const;
 
   protected:
-    MapEntityState(MapEntity& entity, const std::string& state_name);
+    MapEntityState(Entity& entity, const std::string& state_name);
 
   private:
-    MapEntity& entity;        /**< The enity controlled by this state. */
+    Entity& entity;           /**< The entity controlled by this state. */
     const std::string name;   /**< Name describing this state. */
 };
 

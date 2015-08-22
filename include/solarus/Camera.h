@@ -39,7 +39,7 @@ class TargetMovement;
  * Occasionally, it can also be moved towards a point and then restored
  * towards the hero.
  */
-class Camera : public MapEntity {
+class Camera : public Entity {
 
   public:
 
@@ -53,7 +53,7 @@ class Camera : public MapEntity {
     void set_speed(int speed);
     void move(int target_x, int target_y);
     void move(const Point& target);
-    void move(MapEntity& entity);
+    void move(Entity& entity);
     void restore();
     void traverse_separator(Separator* separator);
 
@@ -67,7 +67,7 @@ class Camera : public MapEntity {
     void update_moving();
 
     // Camera centered on the hero.
-    MapEntityPtr fixed_on;                  /**< An entity the camera is fixed on,
+    EntityPtr fixed_on;                     /**< An entity the camera is fixed on,
                                              * nullptr if it has a movement. */
     Rectangle separator_scrolling_position; /**< Current camera position while crossing a separator. */
     Rectangle separator_target_position;    /**< Target camera position when crossing a separator. */

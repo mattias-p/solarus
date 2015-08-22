@@ -26,7 +26,7 @@ namespace Solarus {
  * \param hero The hero to control with this state.
  * \param state_name A name describing this state.
  */
-MapEntityState::MapEntityState(MapEntity& entity, const std::string& state_name):
+MapEntityState::MapEntityState(Entity& entity, const std::string& state_name):
   entity(entity),
   name(state_name) {
 }
@@ -43,7 +43,7 @@ MapEntityState::~MapEntityState() {
  * \brief Returns the entity linked to this state.
  * \return The entity linked to this state.
  */
-MapEntity& MapEntityState::get_entity() {
+Entity& MapEntityState::get_entity() {
   return entity;
 }
 
@@ -51,7 +51,7 @@ MapEntity& MapEntityState::get_entity() {
  * \brief Returns the entity linked to this state.
  * \return The entity linked to this state.
  */
-const MapEntity& MapEntityState::get_entity() const {
+const Entity& MapEntityState::get_entity() const {
   return entity;
 }
 

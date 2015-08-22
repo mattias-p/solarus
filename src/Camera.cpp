@@ -36,7 +36,7 @@ namespace Solarus {
  * \param map The map.
  */
 Camera::Camera(Map& map):
-  MapEntity("camera", 0, LAYER_HIGH, Point(0, 0), Video::get_quest_size()),
+  Entity("camera", 0, LAYER_HIGH, Point(0, 0), Video::get_quest_size()),
   fixed_on(map.get_game().get_hero()),
   separator_next_scrolling_date(0),
   separator_scrolling_direction4(0),
@@ -218,7 +218,7 @@ void Camera::move(const Point& target) {
  *
  * \param entity the target entity
  */
-void Camera::move(MapEntity& entity) {
+void Camera::move(Entity& entity) {
 
   move(entity.get_center_point());
 }
