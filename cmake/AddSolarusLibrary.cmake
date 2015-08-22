@@ -37,6 +37,7 @@ file(
   include/solarus/entities/MapEntities.h
   include/solarus/entities/MapEntity.h
   include/solarus/entities/MapEntityPtr.h
+  include/solarus/entities/MapEntityState.h
   include/solarus/entities/NonAnimatedRegions.h
   include/solarus/entities/Npc.h
   include/solarus/entities/ParallaxScrollingTilePattern.h
@@ -234,6 +235,7 @@ file(
   src/entities/Jumper.cpp
   src/entities/MapEntities.cpp
   src/entities/MapEntity.cpp
+  src/entities/MapEntityState.cpp
   src/entities/NonAnimatedRegions.cpp
   src/entities/Npc.cpp
   src/entities/ParallaxScrollingTilePattern.cpp

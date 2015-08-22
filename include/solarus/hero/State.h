@@ -20,9 +20,9 @@
 #include "solarus/Common.h"
 #include "solarus/entities/CarriedItem.h"
 #include "solarus/entities/Hero.h"
+#include "solarus/entities/MapEntityState.h"
 #include <cstdint>
 #include <memory>
-#include <string>
 
 namespace Solarus {
 
@@ -34,15 +34,17 @@ namespace Solarus {
  * Most of them are almost empty here because they depend on the state.
  * Redefine for each state the functions that you need to implement or change.
  */
-class Hero::State {
+class Hero::State: public MapEntityState {
 
   public:
 
     // creation and destruction
     virtual ~State();
-    const std::string& get_name() const;
     virtual void start(const State* previous_state);
     virtual void stop(const State* next_state);
+
+    virtual Hero& get_entity() override;
+    virtual const Hero& get_entity() const override;
 
     // game loop
     virtual void update();
