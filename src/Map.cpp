@@ -914,22 +914,22 @@ bool Map::test_collision_with_obstacles(
   // This is enough for all terrains (except diagonal ones, see below)
   // because the tested collision box makes at least 8x8 pixels.
   bool found_diagonal_wall = false;
-  for (int x = x1; x <= x2; x += 8) {
+  for (int x = x1; x < x2; x += 8) {
     if (test_collision_with_ground(layer, x, y1, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x, y2, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x + 7, y1, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x + 7, y2, entity_to_check, found_diagonal_wall)) {
+        || test_collision_with_ground(layer, x, y2, entity_to_check, found_diagonal_wall)) {
       return true;
     }
   }
 
-  for (int y = y1; y <= y2; y += 8) {
+  for (int y = y1; y < y2; y += 8) {
     if (test_collision_with_ground(layer, x1, y, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x2, y, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x1, y + 7, entity_to_check, found_diagonal_wall)
-        || test_collision_with_ground(layer, x2, y + 7, entity_to_check, found_diagonal_wall)) {
+        || test_collision_with_ground(layer, x2, y, entity_to_check, found_diagonal_wall)) {
       return true;
     }
+  }
+
+  if (test_collision_with_ground(layer, x2, y2, entity_to_check, found_diagonal_wall)) {
+    return true;
   }
 
   // Is a full check of the border needed?

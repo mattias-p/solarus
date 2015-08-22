@@ -849,8 +849,8 @@ Size MapEntity::get_size() const {
  */
 void MapEntity::set_size(int width, int height) {
 
-  Debug::check_assertion(width % 8 == 0 && height % 8 == 0,
-      "Invalid entity size: width and height must be multiple of 8");
+  Debug::check_assertion(width > 0 && height > 0,
+      "Invalid entity size: width and height must be greater than 0");
   bounding_box.set_size(width, height);
 }
 
